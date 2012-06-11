@@ -35,9 +35,7 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef XENON
-#include <ogc/lwp_watchdog.h>
-#endif
+//#include <ogc/lwp_watchdog.h>
 #include <string.h>
 #include <limits.h>
 

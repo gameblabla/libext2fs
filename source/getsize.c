@@ -39,7 +39,6 @@
 #endif
 #include <sys/disk.h>
 #endif
-#undef __linux__
 #ifdef __linux__
 #include <sys/utsname.h>
 #endif

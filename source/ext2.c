@@ -27,7 +27,6 @@
 #include "gekko_io.h"
 #include "mem_allocate.h"
 #include "partitions.h"
-#include <debug.h>
 
 bool ext2Mount(const char *name, const DISC_INTERFACE *interface, sec_t startSector, u32 cachePageCount, u32 cachePageSize, u32 flags)
 {
@@ -37,22 +36,20 @@ bool ext2Mount(const char *name, const DISC_INTERFACE *interface, sec_t startSec
     gekko_fd *fd = NULL;
     ext2_vd * vd = NULL;
 
-	
-	TR;
     // Sanity check
     if (!name || !interface)
     {
         errno = EINVAL;
         return false;
     }
-TR;
+
     // Allocate the device driver descriptor
     fd = (gekko_fd*) mem_alloc(sizeof(gekko_fd));
     if (!fd)
 		goto cleanup;
-TR;
+
     memset(fd, 0, sizeof(gekko_fd));
-TR;
+
     // Setup the device driver descriptor
     fd->interface = interface;
     fd->startSector = startSector;
@@ -60,7 +57,7 @@ TR;
     fd->sectorCount = 0;
     fd->cachePageCount = cachePageCount;
     fd->cachePageSize = cachePageSize;
-TR;
+
     fs = mem_alloc(sizeof(struct struct_ext2_filsys));
 	if (!fs)
 	{
@@ -68,9 +65,9 @@ TR;
         errno = ENOMEM;
         goto cleanup;
     }
-TR;
+
 	memset(fs, 0, sizeof(struct struct_ext2_filsys));
-TR;
+
 	io_chan = mem_alloc(sizeof(struct struct_io_channel));
 	if (!io_chan)
 	{
@@ -78,7 +75,7 @@ TR;
         errno = ENOMEM;
         goto cleanup;
     }
-TR;
+
 	memset(io_chan, 0, sizeof(struct struct_io_channel));
 
     io_chan->magic = EXT2_ET_MAGIC_IO_CHANNEL;
@@ -91,34 +88,33 @@ TR;
 	io_chan->refcount = 1;
     io_chan->private_data = fd;
 	io_chan->flags = flags;
-TR;
+
     retval = ext2fs_open2(io_chan->name, 0, io_chan->flags, 0, 0, io_chan, &fs);
     if(retval)
     {
         ext2_log_trace("error mounting %i\n", (int) retval);
 		goto cleanup;
     }
-TR;
+
     vd = mem_alloc(sizeof(ext2_vd));
     if(!vd)
     {
         ext2_log_trace("no memory for vd\n");
 		goto cleanup;
     }
-TR;
+
     // Initialise the volume descriptor
     ext2InitVolume(vd);
     vd->fs = fs;
     vd->io = io_chan;
     vd->root = EXT2_ROOT_INO;
-TR;
+
     // Add the device to the devoptab table
     if (ext2AddDevice(name, vd)) {
-		TR;
         ext2DeinitVolume(vd);
         goto cleanup;
     }
-TR;
+
     return true;
 
 cleanup:
@@ -133,7 +129,7 @@ cleanup:
         ext2fs_close(fs);
 		ext2fs_free(fs);
 	}
-TR;
+
     return false;
 }
 

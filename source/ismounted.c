@@ -34,7 +34,7 @@
 
 #include "ext2_fs.h"
 #include "ext2fs.h"
-#undef __linux__
+
 #ifdef HAVE_MNTENT_H
 /*
  * Helper function which checks a file in /etc/mtab format to see if a

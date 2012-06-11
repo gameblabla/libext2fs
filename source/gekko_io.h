@@ -23,13 +23,12 @@
 #define _GEKKO_IO_H
 
 #ifndef XENON
-#include <gccore.h>
 #include <ogc/disc_io.h>
+#include <gccore.h>
 #else
 #include <xetypes.h>
 #include <diskio/disc_io.h>
 #endif
-
 #include "disc_cache.h"
 #include "ext2fs.h"
 

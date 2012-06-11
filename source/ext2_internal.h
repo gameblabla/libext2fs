@@ -26,6 +26,9 @@
 #else
 #include <xetypes.h>
 #include <diskio/disc_io.h>
+typedef int mutex_t;
+#define LWP_MutexLock(x)
+#define LWP_MutexUnlock(x)
 #endif
 #include <sys/iosupport.h>
 #include "ext2fs.h"
@@ -52,9 +55,7 @@ typedef struct _ext2_vd
 {
 	io_channel io;                          /* EXT device handle */
     ext2_filsys fs;                         /* EXT volume handle */
-#ifndef XENON
     mutex_t lock;                           /* Volume lock mutex */
-#endif
     ext2_inode_t *cwd_ni;                   /* Current directory */
     struct _ext2_dir_state *firstOpenDir;   /* The start of a FILO linked list of currently opened directories */
     struct _ext2_file_state *firstOpenFile; /* The start of a FILO linked list of currently opened files */
@@ -76,17 +77,13 @@ typedef enum {
 /* Lock volume */
 static inline void ext2Lock (ext2_vd *vd)
 {
-#ifndef XENON
     LWP_MutexLock(vd->lock);
-#endif
 }
 
 /* Unlock volume */
 static inline void ext2Unlock (ext2_vd *vd)
 {
-#ifndef XENON
     LWP_MutexUnlock(vd->lock);
-#endif
 }
 
 const char *ext2RealPath (const char *path);

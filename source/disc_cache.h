@@ -47,6 +47,7 @@
 #include <xetypes.h>
 #include <diskio/disc_io.h>
 #endif
+
 typedef struct
 {
 	sec_t           sector;

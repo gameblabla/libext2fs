@@ -29,7 +29,7 @@
 
 #include "ext2_fs.h"
 #include "ext2fs.h"
-#undef __linux__
+
 #ifdef __linux__
 
 #if defined(HAVE_LSEEK64) && defined(HAVE_LSEEK64_PROTOTYPE)

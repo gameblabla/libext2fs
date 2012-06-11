@@ -621,4 +621,3 @@ const struct struct_io_manager struct_gekko_io_manager =
 };
 
 io_manager gekko_io_manager = (io_manager) &struct_gekko_io_manager;
-

@@ -11,14 +11,6 @@
       </df>
       <df name="source">
         <df name="xenon_debug">
-          <in>alloc.d</in>
-          <in>alloc_sb.d</in>
-          <in>alloc_stats.d</in>
-          <in>alloc_tables.d</in>
-          <in>badblocks.d</in>
-          <in>bb_compat.d</in>
-          <in>bb_inode.d</in>
-          <in>bitmaps.d</in>
         </df>
         <in>alloc.c</in>
         <in>alloc_sb.c</in>
@@ -157,7 +149,7 @@
       <makefileType>
         <makeTool>
           <buildCommandWorkingDir>.</buildCommandWorkingDir>
-          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <buildCommand>${MAKE} -f Makefile install</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath></executablePath>
         </makeTool>
