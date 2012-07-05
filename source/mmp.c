@@ -14,8 +14,15 @@
 #endif
 
 #include "config.h"
+
+#ifdef XENON
+void sleep(int i){
+  delay(i);
+}
+#else
 #if HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #endif
 #include <sys/time.h>
 
